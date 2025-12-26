@@ -7,8 +7,6 @@ class MyNavigationBar extends StatelessWidget {
   final String title;
   final int selectedIndex;
   final ValueChanged<int> onItemSelected;
-
-  // Labels for the navigation
   final List<MyNavigationBarItemData> items;
 
   const MyNavigationBar({
@@ -26,30 +24,36 @@ class MyNavigationBar extends StatelessWidget {
     final theme = Theme.of(context);
 
     if (screenType == ScreenType.desktop) {
-      // Big NavigationBar for desktops
       return Scaffold(
         body: Row(
           children: [
             Container(
-              color: theme.colorScheme.surface,
               width: 200,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 12,
+                    spreadRadius: 2,
+                  )
+                ],
+              ),
               child: Column(
                 children: [
-                  // Render all items except the last one
                   for (int i = 0; i < items.length - 1; i++)
                     MyNavigationBarItem(
                       icon: items[i].icon,
                       label: items[i].label,
                       selected: selectedIndex == i,
                       onTap: () => onItemSelected(i),
-                  ),
-                  // Push the last item to the bottom (settings)
+                    ),
                   const Spacer(),
                   Padding(
                     padding: EdgeInsetsGeometry.only(bottom: 4),
                     child: Divider(
                       thickness: 1,
                       height: 1,
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                   MyNavigationBarItem(
@@ -61,13 +65,16 @@ class MyNavigationBar extends StatelessWidget {
                 ],
               ),
             ),
-            const VerticalDivider(thickness: 1, width: 1),
+            VerticalDivider(
+              thickness: 1,
+              width: 1,
+              color: theme.colorScheme.primary,
+            ),
             Expanded(child: body),
           ],
         ),
       );
     } else if (screenType == ScreenType.tablet) {
-      // Small NavigationBar for tablets
       return Scaffold(
         body: Row(
           children: [
@@ -75,51 +82,78 @@ class MyNavigationBar extends StatelessWidget {
               backgroundColor: theme.colorScheme.surface,
               selectedIndex: selectedIndex,
               labelType: NavigationRailLabelType.all,
+              selectedIconTheme: IconThemeData(
+                color: theme.colorScheme.primary,
+                size: 30,
+              ),
+              unselectedIconTheme: IconThemeData(
+                color: theme.colorScheme.outline,
+                size: 25,
+              ),
+              selectedLabelTextStyle: TextStyle(
+                color: theme.colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+              unselectedLabelTextStyle: TextStyle(
+                color: theme.colorScheme.outline,
+              ),
               onDestinationSelected: onItemSelected,
               destinations: [
                 for (final item in items)
                   NavigationRailDestination(
                     icon: Icon(item.icon),
                     label: Text(item.label),
-                ),
+                  ),
               ],
             ),
-            const VerticalDivider(thickness: 1, width: 1),
+            VerticalDivider(
+              thickness: 1,
+              width: 1,
+              color: theme.colorScheme.primary,
+            ),
             Expanded(child: body),
           ],
         ),
       );
     } else {
-      // Overlay on mobile devices
       return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(
+            title,
+          ),
           backgroundColor: theme.colorScheme.primaryContainer,
         ),
         drawer: Drawer(
           backgroundColor: theme.colorScheme.surface,
           child: Column(
             children: [
-              const DrawerHeader(child: Text('CodeJudge')),
+              DrawerHeader(
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'CodeJudge',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ),
               Expanded(
                 child: Column(
                   children: [
-                    // List all items except the last one
                     for (int i = 0; i < items.length - 1; i++)
                       MyNavigationBarItem(
                         icon: items[i].icon,
                         label: items[i].label,
                         selected: selectedIndex == i,
                         onTap: () => onItemSelected(i),
-                    ),
-                    // Push the last item to the bottom (settings)
-                    const Spacer(),
-                    Padding(
-                      padding: EdgeInsetsGeometry.only(bottom: 4),
-                      child: Divider(
-                        thickness: 1,
-                        height: 1,
                       ),
+                    const Spacer(),
+                    Divider(
+                      thickness: 1,
+                      height: 1,
                     ),
                     MyNavigationBarItem(
                       icon: items.last.icon,
@@ -139,7 +173,6 @@ class MyNavigationBar extends StatelessWidget {
   }
 }
 
-// Data per item
 class MyNavigationBarItemData {
   final IconData icon;
   final String label;
@@ -150,7 +183,6 @@ class MyNavigationBarItemData {
   });
 }
 
-// Design of an item
 class MyNavigationBarItem extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -169,19 +201,41 @@ class MyNavigationBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Material(
-      color: selected
-          ? theme.colorScheme.surfaceContainerHighest
-          : theme.colorScheme.surface,
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      curve: Curves.easeOut,
+      decoration: BoxDecoration(
+        color: selected
+            ? theme.colorScheme.primary.withOpacity(0.12)
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
             children: [
-              Icon(icon),
+              Icon(
+                icon,
+                size: 24,
+                color: selected
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.onSurface.withOpacity(0.8),
+              ),
               const SizedBox(width: 12),
-              Text(label),
+              Text(
+                label,
+                style: TextStyle(
+                  fontFamily: "SourceCodePro",
+                  fontSize: 15,
+                  fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                  color: selected
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.onSurface.withOpacity(0.8),
+                ),
+              ),
             ],
           ),
         ),

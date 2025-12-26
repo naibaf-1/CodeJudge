@@ -10,11 +10,13 @@ class MySearchBar extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 14, top: 8, right: 4),
+            padding: const EdgeInsets.only(left: 14, top: 8, right: 14),
             child: TextField(
               decoration: InputDecoration(
                 hintText: hint,
@@ -27,14 +29,9 @@ class MySearchBar extends StatelessWidget{
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8, right: 14),
-          child: IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () {},
-          ),
-        ),
       ],
     );
   }
 }
+
+// TODO Implement search functionality
