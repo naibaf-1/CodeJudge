@@ -1,3 +1,4 @@
+import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/ui_elements/my_alert_dialog.dart';
 import 'package:code_juge/ui_elements/my_edit_text.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,13 @@ class TrainingsMode extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     int programmingLanguage = 0;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Trainings mode"),
+        title: Text(appLocalizations.trainingsMode), // Trainings mode
         backgroundColor: theme.colorScheme.primaryContainer,
       ),
       body: Column(
@@ -47,7 +49,7 @@ class TrainingsMode extends StatelessWidget{
                   const SizedBox(height: 16),
 
                   MyEditText(
-                    hint: "Enter code...",
+                    hint: appLocalizations.enterCodeHint, // Enter your code...
                     onInputDone: (value) {},
                   ),
 
@@ -66,7 +68,6 @@ class TrainingsMode extends StatelessWidget{
                 const Text("ERROR: xyz"),
                 const Spacer(),
 
-                // TODO Implement translation
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -80,7 +81,7 @@ class TrainingsMode extends StatelessWidget{
                 FloatingActionButton.extended(
                   // TODO Call C backend => Handle output
                   // TODO Implement translation
-                  label: Text("Done"),
+                  label: Text(appLocalizations.done), // Done
                   icon: Icon(Icons.done_all),
                   onPressed: () {
                     MyAlertDialog().showTrainingSuccessfullDialog(context);

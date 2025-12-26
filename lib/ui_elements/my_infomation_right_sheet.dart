@@ -1,11 +1,14 @@
 import 'dart:ui';
 
+import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/pages/trainings_mode.dart';
 import 'package:flutter/material.dart';
 
 class OpenMyRightSheet {
   // Open the RightSheet and fill it with the correct content
   static void openMyRightSheet(BuildContext context, String data, double width){
+    final appLocalizations = AppLocalizations.of(context)!;
+
     MyRightSheet().showRightSheet(
       context, 
       Stack(
@@ -31,7 +34,7 @@ class OpenMyRightSheet {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(16),
-                              child: Text("RightSheet",),
+                              child: Text(appLocalizations.rightSheetDetails), // Details
                             ),
                           ),
                         ],
@@ -58,8 +61,7 @@ class OpenMyRightSheet {
                     MaterialPageRoute(builder: (context) => TrainingsMode(workOrder: data)),
                   );                },
                 icon: Icon(Icons.play_circle),
-                // TODO Implement translation
-                label: Text("Start"),
+                label: Text(appLocalizations.rightSheetStart), // Start
               ),
             ),
           ),
@@ -69,7 +71,7 @@ class OpenMyRightSheet {
   }
 }
 
-// Overlay at the right side of the window showing some informations about the exercise
+// Overlay at the right side of the window showing some informations about an exercise
 class MyRightSheet{
   void showRightSheet(BuildContext context, Widget child) {
     final theme = Theme.of(context);
@@ -77,9 +79,8 @@ class MyRightSheet{
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
-      // TODO Implement translation
-      barrierLabel: "Information",
-      barrierColor: theme.colorScheme.scrim.withOpacity(0.5),
+      barrierLabel: AppLocalizations.of(context)!.rightSheetDetails, // Details
+      barrierColor: theme.colorScheme.scrim.withOpacity(0.5), // TODO xy
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (context, animation, secondaryAnimation) {
         return child;

@@ -1,3 +1,4 @@
+import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/main.dart';
 import 'package:code_juge/pages/settings_page.dart';
 import 'package:code_juge/ui_elements/my_infomation_right_sheet.dart';
@@ -55,14 +56,15 @@ class ExercisePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Column(
         children: [
           MySearchBar(
-            // TODO Implemtent translation
-            hint: "Search"
+            hint: appLocalizations.searchHint, // Search
           ),
-          // Display a list of dishes
+          // Display a list of exercises
           Expanded(
             child: GridView.count(
               crossAxisCount: 5,
@@ -72,10 +74,8 @@ class ExercisePage extends StatelessWidget{
               children: List.generate(
                 items.length,
                 (index) {
-                  // TODO Implement translation
                   return MyDesktopAndTabletItem(
                     title: items[index],
-                    // TODO Implement OnTap
                     onTap: (){
                       // Open overlay showing further informations
                       OpenMyRightSheet.openMyRightSheet(context, "blablabla", 750);

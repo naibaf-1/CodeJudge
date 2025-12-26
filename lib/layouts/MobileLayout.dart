@@ -1,3 +1,4 @@
+import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/main.dart';
 import 'package:code_juge/pages/settings_page.dart';
 import 'package:code_juge/ui_elements/my_infomation_right_sheet.dart';
@@ -55,12 +56,13 @@ class ExercisePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Column(
         children: [
           MySearchBar(
-            // TODO Implemtent translation
-            hint: "Search"
+            hint: appLocalizations.searchHint, // Search
           ),
           // Display a list of dishes
           Expanded(
@@ -70,7 +72,6 @@ class ExercisePage extends StatelessWidget{
               separatorBuilder: (context, index) => const SizedBox(height: 8),
               itemBuilder: (context, index) {
                 return MyMobileItem(
-                  // TODO Implement translation
                   title: items[index],
                   onTap: (){
                     // Open overlay showing further informations
