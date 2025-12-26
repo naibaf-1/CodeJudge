@@ -9,6 +9,33 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get exercises => 'Exercises';
+
+  @override
+  String get searchHint => 'Search';
+
+  @override
+  String get trainingsMode => 'Trainings mode';
+
+  @override
+  String get enterCodeHint => 'Enter your code...';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get alertSuccess => 'Congratulations!';
+
+  @override
+  String get alertClose => 'Close';
+
+  @override
+  String get rightSheetStart => 'Start';
+
+  @override
+  String get rightSheetDetails => 'Details';
+
+  @override
   String get settings => 'Settings';
 
   @override

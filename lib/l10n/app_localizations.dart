@@ -95,6 +95,60 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @exercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get exercises;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get searchHint;
+
+  /// No description provided for @trainingsMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Trainings mode'**
+  String get trainingsMode;
+
+  /// No description provided for @enterCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your code...'**
+  String get enterCodeHint;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @alertSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations!'**
+  String get alertSuccess;
+
+  /// No description provided for @alertClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get alertClose;
+
+  /// No description provided for @rightSheetStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get rightSheetStart;
+
+  /// No description provided for @rightSheetDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get rightSheetDetails;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:

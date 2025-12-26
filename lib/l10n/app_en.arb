@@ -1,6 +1,17 @@
 {
   "@@locale": "en",
 
+  "exercises": "Exercises",
+  "searchHint": "Search",
+
+  "trainingsMode": "Trainings mode",
+  "enterCodeHint": "Enter your code...",
+  "done": "Done",
+  "alertSuccess": "Congratulations!",
+  "alertClose": "Close",
+  "rightSheetStart": "Start",
+  "rightSheetDetails": "Details",
+
   "settings": "Settings",
   "themeMode": "Theme Mode:",
   "system": "System",
