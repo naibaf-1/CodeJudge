@@ -1,0 +1,12 @@
+{
+  "@@locale": "de",
+
+  "settings": "Einstellungen",
+  "themeMode": "Modus des Themas:",
+  "system": "System",
+  "lightMode": "Hell",
+  "darkMode": "Dunkel",
+  "localisationMode": "Sprache:",
+  "localeEnglish": "Englisch",
+  "localeGerman": "Deutsch"
+}

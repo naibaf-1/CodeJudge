@@ -1,3 +1,4 @@
+import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +15,12 @@ class SettingsPage extends StatelessWidget {
     final settingsController = Provider.of<SettingsController>(context);
     final currentMode = settingsController.selectedTheme;
     final currentLocalization = settingsController.selectedLocale?.languageCode ?? 'system';
-    // TODO Get translation
-    //final appLocalizations = AppLocalizations.of(context)!;
+    // Get translation
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("appLocalizations.settings"),
+        title: Text(appLocalizations.settings), // Settings
         backgroundColor: theme.colorScheme.primaryContainer,
       ), //Title: Settings
       body: Padding(
@@ -27,7 +28,7 @@ class SettingsPage extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text("appLocalizations.themeMode"), // Theme Mode:
+              title: Text(appLocalizations.themeMode), // Theme Mode:
               trailing: SizedBox(
                 width: 86,
                 child: DropdownButtonHideUnderline(
@@ -41,15 +42,15 @@ class SettingsPage extends StatelessWidget {
                   items: [
                     DropdownMenuItem(
                       value: ThemeMode.system,
-                      child: Text("appLocalizations.system")  // System
+                      child: Text(appLocalizations.system)  // System
                     ),
                     DropdownMenuItem(
                       value: ThemeMode.light,
-                      child: Text("appLocalizations.lightMode") // Light
+                      child: Text(appLocalizations.lightMode) // Light
                     ),
                     DropdownMenuItem(
                       value: ThemeMode.dark,
-                      child: Text("appLocalizations.darkMode") // Dark
+                      child: Text(appLocalizations.darkMode) // Dark
                     ),
                   ],
                 ),
@@ -57,7 +58,7 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text("appLocalizations.localisationMode"), // Language:
+              title: Text(appLocalizations.localisationMode), // Language:
               trailing: SizedBox(
                 width: 86,
                 child: DropdownButtonHideUnderline(
@@ -75,15 +76,15 @@ class SettingsPage extends StatelessWidget {
                   items: [
                       DropdownMenuItem(
                         value: 'system',
-                        child: Text("appLocalizations.system"), // System
+                        child: Text(appLocalizations.system), // System
                       ),
                       DropdownMenuItem(
                         value: 'en',
-                        child: Text("appLocalizations.localeEnglish"), // English
+                        child: Text(appLocalizations.localeEnglish), // English
                       ),
                       DropdownMenuItem(
                         value: 'de',
-                        child: Text("appLocalizations.localeGerman"), // German
+                        child: Text(appLocalizations.localeGerman), // German
                       ),
                     ],
                   ),
