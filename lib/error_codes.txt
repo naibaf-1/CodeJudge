@@ -1,0 +1,1 @@
+- Code 1: See judger.c line 23. The String programmingLanguage is either null or it has a value the if conditions can't handle. 
