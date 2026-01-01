@@ -72,7 +72,7 @@ class TrainingsMode extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 100,
+                      width: 120,
                       child: ProgrammingLanguageSelector(programmingLanguage: programmingLanguage),
                     ),
                   ],
