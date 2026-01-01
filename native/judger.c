@@ -30,16 +30,20 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == FILE_ERROR){
+            free(fileName);
             return "ERROR: Unable to generate the file (Code -1)";
         }
 
         // Call the compiler for the correct language and check for errors
         int compilation = callCompiler(fileName, "gcc %s -o UserProgramm 2> /dev/null");
         if (compilation == SYSTEM_ERROR) {
+            free(fileName);
             return "ERROR: Calling system() didn't work (Code 3)";
         } else if (compilation == MISSING_COMPILER_ERROR) {
+            free(fileName);
             return "ERROR: No compiler found (Code -2)";
         } else if (compilation == COMPILATION_ERROR) {
+            free(fileName);
             return "ERROR: Error while compiling the code (Code 2)";
         }
 
@@ -49,16 +53,20 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == FILE_ERROR){
+            free(fileName);
             return "ERROR: Unable to generate the file (Code -1)";
         }
 
         // Call the compiler for the correct language and check for errors
-        int compilation = callCompiler(fileName, "go build -o UserProgramm UserCode.go");
+        int compilation = callCompiler(fileName, "go build -o UserProgramm %s");
         if (compilation == SYSTEM_ERROR) {
+            free(fileName);
             return "ERROR: Calling system() didn't work (Code 3)";
         } else if (compilation == MISSING_COMPILER_ERROR) {
+            free(fileName);
             return "ERROR: No compiler found (Code -2)";
         } else if (compilation == COMPILATION_ERROR) {
+            free(fileName);
             return "ERROR: Error while compiling the code (Code 2)";
         }
 
@@ -68,16 +76,20 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == FILE_ERROR){
+            free(fileName);
             return "ERROR: Unable to generate the file (Code -1)";
         }
 
         // Check at least whether the syntax is fine or not
         int interpretation = callCompiler(fileName, "python3 -m py_compile %s 2> /dev/null");
         if (interpretation == SYSTEM_ERROR) {
+            free(fileName);
             return "ERROR: Calling system() didn't work (Code 3)";
         } else if (interpretation == MISSING_COMPILER_ERROR) {
+            free(fileName);
             return "ERROR: No compiler found (Code -2)";
         } else if (interpretation == COMPILATION_ERROR) {
+            free(fileName);
             return "ERROR: Error while compiling the code (Code 2)";
         }
 
@@ -87,16 +99,20 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == FILE_ERROR){
+            free(fileName);
             return "ERROR: Unable to generate the file (Code -1)";
         }
 
         // Call the compiler for the correct language and check for errors
         int compilation = callCompiler(fileName, "g++ %s -o UserProgramm 2> /dev/null");
         if (compilation == SYSTEM_ERROR) {
+            free(fileName);
             return "ERROR: Calling system() didn't work (Code 3)";
         } else if (compilation == MISSING_COMPILER_ERROR) {
+            free(fileName);
             return "ERROR: No compiler found (Code -2)";
         } else if (compilation == COMPILATION_ERROR) {
+            free(fileName);
             return "ERROR: Error while compiling the code (Code 2)";
         }
 
@@ -106,16 +122,20 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == FILE_ERROR){
+            free(fileName);
             return "ERROR: Unable to generate the file (Code -1)";
         }
 
         // Call the compiler for the correct language and check for errors
         int compilation = callCompiler(fileName, "csc UserCode.cs");
         if (compilation == SYSTEM_ERROR) {
+            free(fileName);
             return "ERROR: Calling system() didn't work (Code 3)";
         } else if (compilation == MISSING_COMPILER_ERROR) {
+            free(fileName);
             return "ERROR: No compiler found (Code -2)";
         } else if (compilation == COMPILATION_ERROR) {
+            free(fileName);
             return "ERROR: Error while compiling the code (Code 2)";
         }
 
@@ -123,6 +143,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         result = runProgramAndCalculateTheScore(solution, "dotnet script UserCode.cs");
     } else {
         printf("ERROR: Undefined language (Code 1)\n");
+        free(fileName);
         return "ERROR: Undefined language (Code 1)";
     }
 
@@ -142,7 +163,6 @@ char* writeFile(char* content, char* ending){
     FILE *userFile = fopen(fileName, "w");
     if (userFile == NULL){
         printf("ERROR: Unable to generate the file (Code -1)\n");
-        free(fileName);
         return FILE_ERROR;
     }
     
@@ -192,7 +212,6 @@ struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instru
     FILE* pipe = popen(instruction, "r");
     if (!pipe) {
         crashed = TRUE;
-        result = NULL;
         printf("ERROR: The programm crashed  (Code -3)\n");
         // 0 points if it crashed without an output
         judger.explanation = "The programm crashed without an output";
@@ -220,29 +239,26 @@ struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instru
         crashed = FALSE;
     }
 
-    // Prepare the calculations
+    // Calculate the score
     trimNewline(result);
     trimNewline(correctSolution);
 
-    // Calculate the score
-    if (result != NULL) {
-        // 25 points if crashed with wrong Output
-        if (strcmp(result, correctSolution) != 0 && crashed == TRUE) {
-            judger.explanation = "The programm crashed and it the output is wrong";
-            judger.score = 25;
-        // 50 points if crashed with correct Output
-        } else if (strcmp(result, correctSolution) == 0 && crashed == TRUE) {
-            judger.explanation = "The programm crashed, but the output is correct.";
-            judger.score = 50;
-        // 75 points if wrong Output but no crash
-        } else if (strcmp(result, correctSolution) != 0 && crashed == FALSE) {
-            judger.explanation = "The programm didn't crash, but the output is wrong.";
-            judger.score = 75;
-        // 100 points if correct Output without crashes
-        } else {
-            judger.explanation = "The programm ran successfully and the output is correct as well!";
-            judger.score = 100;
-        }
+    // 25 points if crashed with wrong Output
+    if (strcmp(result, correctSolution) != 0 && crashed == TRUE) {
+        judger.explanation = "The programm crashed and it the output is wrong";
+        judger.score = 25;
+    // 50 points if crashed with correct Output
+    } else if (strcmp(result, correctSolution) == 0 && crashed == TRUE) {
+        judger.explanation = "The programm crashed, but the output is correct.";
+        judger.score = 50;
+    // 75 points if wrong Output but no crash
+    } else if (strcmp(result, correctSolution) != 0 && crashed == FALSE) {
+        judger.explanation = "The programm didn't crash, but the output is wrong.";
+        judger.score = 75;
+    // 100 points if correct Output without crashes
+    } else {
+        judger.explanation = "The programm ran successfully and the output is correct as well!";
+        judger.score = 100;
     }
 
     free(result);
