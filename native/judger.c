@@ -45,7 +45,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
 
         // Run and correct the programm
         result = runProgramAndCalculateTheScore(solution, "./UserProgramm");
-    } else if (strcmp(programmingLanguage, ".java") == 0) {
+    } else if (strcmp(programmingLanguage, ".go") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == FILE_ERROR){
@@ -53,7 +53,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         }
 
         // Call the compiler for the correct language and check for errors
-        int compilation = callCompiler(fileName, "javac %s 2> /dev/null");
+        int compilation = callCompiler(fileName, "go build -o UserProgramm UserCode.go");
         if (compilation == SYSTEM_ERROR) {
             return "ERROR: Calling system() didn't work (Code 3)";
         } else if (compilation == MISSING_COMPILER_ERROR) {
@@ -63,7 +63,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         }
 
         // Run and correct the programm
-        result = runProgramAndCalculateTheScore(solution, "java UserCode");
+        result = runProgramAndCalculateTheScore(solution, "./UserProgramm");
     } else if (strcmp(programmingLanguage, ".py") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -102,6 +102,25 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
 
         // Run and correct the programm
         result = runProgramAndCalculateTheScore(solution, "./UserProgramm");
+    } else if (strcmp(programmingLanguage, ".cs") == 0) {
+        // Write the users code into a file with the correct ending of the language he used
+        fileName = writeFile(usersCode, programmingLanguage);
+        if (fileName == FILE_ERROR){
+            return "ERROR: Unable to generate the file (Code -1)";
+        }
+
+        // Call the compiler for the correct language and check for errors
+        int compilation = callCompiler(fileName, "csc UserCode.cs");
+        if (compilation == SYSTEM_ERROR) {
+            return "ERROR: Calling system() didn't work (Code 3)";
+        } else if (compilation == MISSING_COMPILER_ERROR) {
+            return "ERROR: No compiler found (Code -2)";
+        } else if (compilation == COMPILATION_ERROR) {
+            return "ERROR: Error while compiling the code (Code 2)";
+        }
+
+        // Run and correct the programm
+        result = runProgramAndCalculateTheScore(solution, "dotnet script UserCode.cs");
     } else {
         printf("ERROR: Undefined language (Code 1)\n");
         return "ERROR: Undefined language (Code 1)";

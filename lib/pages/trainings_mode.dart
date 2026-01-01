@@ -116,8 +116,9 @@ class _ProgrammingLanguageSelectorState extends State<ProgrammingLanguageSelecto
         items: const [
           DropdownMenuItem(value: 0, child: Text("C")),
           DropdownMenuItem(value: 1, child: Text("Python")),
-          DropdownMenuItem(value: 2, child: Text("Java")),
+          DropdownMenuItem(value: 2, child: Text("Go")),
           DropdownMenuItem(value: 3, child: Text("C++")),
+          DropdownMenuItem(value: 3, child: Text("C#")),
         ],
         onChanged: (value) {
           setState(() {
