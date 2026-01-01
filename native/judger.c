@@ -6,6 +6,21 @@
 // If called this function receives 3 String and it returns one as soon as it's done
 char* run_judge(const char* usersCode, const char* programmingLanguage, const char* solution) {
     char* fileName;
+    // TODO Perform the file generation & compilation depending on the used language
+    if (programmingLanguage == ".c")
+    {
+        /* code */
+    } else if (programmingLanguage == ".java")
+    {
+        /* code */
+    } else if (programmingLanguage == ".py")
+    {
+        /* code */
+    }
+
+
+
+    
     // Write the users code into a file with the correct ending of the language he used
     fileName = writeFile(usersCode, ".py");
     // TODO Call the compiler and pass the file with the users code
@@ -17,6 +32,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
     // TODO Quit
 }
 
+// Generate a file and write its content
 char* writeFile(char* content, char* ending){
     // Generate the correct file name depending on the langugae the user used
     size_t len = 8 + strlen(ending);
@@ -26,6 +42,14 @@ char* writeFile(char* content, char* ending){
 
     // Generate a new file or override an existing one
     FILE *userFile = fopen("", "w");
+    if (userFile == NULL){
+        printf("ERROR: Unable to generate the file (Code -1)\n");
+        return "-1";
+    }
+    
+    // Write the content
+    fprintf(userFile, content);
+    fclose(userFile);
 
     // Return the correct file name
     return fileName;
