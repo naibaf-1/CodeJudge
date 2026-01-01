@@ -23,6 +23,7 @@ struct Judger{
 // If called this function receives 3 String and it returns one as soon as it's done
 char* run_judge(const char* usersCode, const char* programmingLanguage, const char* solution) {
     char* fileName;
+    struct Judger result;
 
     // Perform the file generation, compilation depending on the used language
     if (strcmp(programmingLanguage, ".c") == 0) {
@@ -43,7 +44,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         }
 
         // Run and correct the programm
-        runProgramAndCalculateTheScore(solution, "./UserProgramm");
+        result = runProgramAndCalculateTheScore(solution, "./UserProgramm");
     } else if (strcmp(programmingLanguage, ".java") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -62,7 +63,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         }
 
         // Run and correct the programm
-        runProgramAndCalculateTheScore(solution, "java UserCode");
+        result = runProgramAndCalculateTheScore(solution, "java UserCode");
     } else if (strcmp(programmingLanguage, ".py") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -81,7 +82,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         }
 
         // Run and correct the programm
-        runProgramAndCalculateTheScore(solution, "python3 UserCode.py");
+        result = runProgramAndCalculateTheScore(solution, "python3 UserCode.py");
     } else if (strcmp(programmingLanguage, ".cpp") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -100,14 +101,13 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         }
 
         // Run and correct the programm
-        runProgramAndCalculateTheScore(solution, "./UserProgramm");
+        result = runProgramAndCalculateTheScore(solution, "./UserProgramm");
     } else {
         printf("ERROR: Undefined language (Code 1)\n");
         return "ERROR: Undefined language (Code 1)";
     }
 
     free(fileName);
-    struct Judger result = runProgramAndCalculateTheScore("", "");
     return result.explanation;
 }
 
@@ -123,6 +123,7 @@ char* writeFile(char* content, char* ending){
     FILE *userFile = fopen(fileName, "w");
     if (userFile == NULL){
         printf("ERROR: Unable to generate the file (Code -1)\n");
+        free(fileName);
         return FILE_ERROR;
     }
     
@@ -149,10 +150,10 @@ int callCompiler(char* fileName, char* instruction){
     }
 
     // Check for errors and whether the compiler is installed or not
-    if (exitCode != 0 && exitCode == 127) {
+    if (exitCode == 127) {
         printf("ERROR: No compiler found (Code -2)\n");
         return MISSING_COMPILER_ERROR;
-    } else if (exitCode != 0) {
+    } else if (exitCode != 0 && exitCode != 127) {
         printf("ERROR: Error while compiling the code (Code 2)\n");
         return COMPILATION_ERROR;
     }
@@ -174,6 +175,11 @@ struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instru
         crashed = TRUE;
         result = NULL;
         printf("ERROR: The programm crashed  (Code -3)\n");
+        // 0 points if it crashed without an output
+        judger.explanation = "The programm crashed without an output";
+        judger.score = 0;
+        free(result);
+        return judger;
     }
 
     // Receive the output
@@ -195,29 +201,40 @@ struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instru
         crashed = FALSE;
     }
 
+    // Prepare the calculations
+    trimNewline(result);
+    trimNewline(correctSolution);
+
     // Calculate the score
-    // 0 points if it crashed without an output
-    if (result == NULL && crashed == TRUE) {
-        judger.explanation = "The programm crashed without an output";
-        judger.score = 0;
-    // 25 points if crashed with wrong Output
-    } else if (strcmp(result, correctSolution) != 0 && crashed == TRUE) {
-        judger.explanation = "The programm crashed and it the output is wrong";
-        judger.score = 25;
-    // 50 points if crashed with correct Output
-    } else if (strcmp(result, correctSolution) == 0 && crashed == TRUE) {
-        judger.explanation = "The programm crashed, but the output is correct.";
-        judger.score = 50;
-    // 75 points if wrong Output but no crash
-    } else if (strcmp(result, correctSolution) != 0 && crashed == FALSE) {
-        judger.explanation = "The programm didn't crash, but the output is wrong.";
-        judger.score = 75;
-    // 100 points if correct Output without crashes
-    } else {
-        judger.explanation = "The programm ran successfully and the output is correct as well!";
-        judger.score = 100;
+    if (result != NULL) {
+        // 25 points if crashed with wrong Output
+        if (strcmp(result, correctSolution) != 0 && crashed == TRUE) {
+            judger.explanation = "The programm crashed and it the output is wrong";
+            judger.score = 25;
+        // 50 points if crashed with correct Output
+        } else if (strcmp(result, correctSolution) == 0 && crashed == TRUE) {
+            judger.explanation = "The programm crashed, but the output is correct.";
+            judger.score = 50;
+        // 75 points if wrong Output but no crash
+        } else if (strcmp(result, correctSolution) != 0 && crashed == FALSE) {
+            judger.explanation = "The programm didn't crash, but the output is wrong.";
+            judger.score = 75;
+        // 100 points if correct Output without crashes
+        } else {
+            judger.explanation = "The programm ran successfully and the output is correct as well!";
+            judger.score = 100;
+        }
     }
 
     free(result);
     return judger;
+}
+
+// Removes \n & \r at the End of a String
+void trimNewline(char* s) {
+    size_t len = strlen(s);
+    while (len > 0 && (s[len-1] == '\n' || s[len-1] == '\r')) {
+        s[len-1] = '\0';
+        len--;
+    }
 }
