@@ -263,7 +263,7 @@ int callCompiler(char* fileName, char* instruction){
     return 0;
 }
 
-// Run a programm and handle the errors
+// Run a programm and handle the errors => Calculate the results
 char* runProgramAndCalculateTheScore(char* correctSolution, char* instruction) {
     
     int crashed = FALSE;

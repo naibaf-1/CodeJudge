@@ -1,6 +1,20 @@
-#ifndef JUDGE_H
-#define JUDGE_H
+#ifndef JUDGER_H
+#define JUDGER_H
 
-char* run_judge(const char* code, const char* language, const char* challenge);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+// Main function of my library: Returns a String in C => Flutter can read it via FFI
+char* runJudge(const char* usersCode, const char* programmingLanguage, const char* solution);
+
+// Internal helper functions
+char* writeFile(char* content, char* ending);
+int callCompiler(char* fileName, char* instruction);
+char* runProgramAndCalculateTheScore(char* correctSolution, char* instruction);
+void trimNewline(char* s);
+
+#ifdef __cplusplus
+}
+#endif
 #endif
