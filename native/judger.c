@@ -4,11 +4,17 @@
 #include <string.h>
 #include <sys/wait.h>
 
+// Struct handling the final result of running a programm
+struct Judger{
+    char* explanation;
+    int score;
+};
+
 // If called this function receives 3 String and it returns one as soon as it's done
 char* run_judge(const char* usersCode, const char* programmingLanguage, const char* solution) {
     char* fileName;
 
-    // TODO Perform the file generation & compilation depending on the used language
+    // Perform the file generation, compilation depending on the used language
     if (programmingLanguage == ".c") {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -131,22 +137,26 @@ int callCompiler(char* fileName, char* instruction){
 }
 
 // Run a programm and handle the errors
-char* runProgramAndCalculateTheScore(int* crashed) {
+struct Judger runProgramAndCalculateTheScore(int* crashed, char* correctSolution) {
+    struct Judger judger;
+
+    char* result = malloc(2048);
+    result[0] = '\0';
+
     // Try to start the programm and throw an error if it crashes
     FILE* pipe = popen("./program", "r");
     if (!pipe) {
         *crashed = 1;
+        result = NULL;
         printf("ERROR: The programm crashed  (Code -3)\n");
-        return "-3";
     }
 
     // Receive the output
-    char* result = malloc(2048);
-    result[0] = '\0';
-
-    char buffer[256];
-    while (fgets(buffer, sizeof(buffer), pipe)) {
-        strcat(result, buffer);
+    if (crashed != 1){
+        char buffer[256];
+        while (fgets(buffer, sizeof(buffer), pipe)) {
+            strcat(result, buffer);
+        }
     }
 
     // Quit the programm and receive the exit code
@@ -155,11 +165,34 @@ char* runProgramAndCalculateTheScore(int* crashed) {
     // Check whether the programm crashed by checking the exit codes
     if (WIFSIGNALED(status)) {
         *crashed = 1;
-        free(result);
-        return "-3";
     }
 
     // If everything is fine return the correct Output
     *crashed = 0;
-    return result;
+
+    // Calculate the score
+    // 0 points if it crashed without an output
+    if (result == NULL && crashed == 1) {
+        judger.explanation = "The programm crashed without an output";
+        judger.score = 0;
+    // 25 points if crashed with wrong Output
+    } else if (strcmp(result, correctSolution) != 0 && crashed == 1) {
+        judger.explanation = "The programm crashed and it the output is wrong";
+        judger.score = 25;
+    // 50 points if crashed with correct Output
+    } else if (strcmp(result, correctSolution) == 0 && crashed == 1) {
+        judger.explanation = "The programm crashed, but the output is correct.";
+        judger.score = 50;
+    // 75 points if wrong Output but no crash
+    } else if (strcmp(result, correctSolution) != 0 && crashed == 0) {
+        judger.explanation = "The programm didn't crash, but the output is wrong.";
+        judger.score = 75;
+    // 100 points if correct Output without crashes
+    } else {
+        judger.explanation = "The programm ran successfully and the output is correct as well!";
+        judger.score = 100;
+    }
+
+    free(result);
+    return judger;
 }
