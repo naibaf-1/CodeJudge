@@ -15,11 +15,31 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         if (fileName == "-1"){
             return "ERROR: Unable to generate the file (Code -1)";
         }
+
+        // Call the compiler for the correct language and check for errors
+        int compilation = callCompiler(fileName, "gcc %s -o UserProgramm 2> /dev/null");
+        if (compilation == 3) {
+            return "ERROR: Calling system() didn't work (Code 3)";
+        } else if (compilation == -2) {
+            return "ERROR: No compiler found (Code -2)";
+        } else if (compilation == 2) {
+            return "ERROR: Error while compiling the code (Code 2)";
+        }
     } else if (programmingLanguage == ".java") {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == "-1"){
             return "ERROR: Unable to generate the file (Code -1)";
+        }
+
+        // Call the compiler for the correct language and check for errors
+        int compilation = callCompiler(fileName, "javac %s 2> /dev/null");
+        if (compilation == 3) {
+            return "ERROR: Calling system() didn't work (Code 3)";
+        } else if (compilation == -2) {
+            return "ERROR: No compiler found (Code -2)";
+        } else if (compilation == 2) {
+            return "ERROR: Error while compiling the code (Code 2)";
         }
     } else if (programmingLanguage == ".py") {
         // Write the users code into a file with the correct ending of the language he used
@@ -27,11 +47,31 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         if (fileName == "-1"){
             return "ERROR: Unable to generate the file (Code -1)";
         }
+
+        // Check at least whether the syntax is fine or not
+        int interpretation = callCompiler(fileName, "python3 -m py_compile %s 2> /dev/null");
+        if (interpretation == 3) {
+            return "ERROR: Calling system() didn't work (Code 3)";
+        } else if (interpretation == -2) {
+            return "ERROR: No compiler found (Code -2)";
+        } else if (interpretation == 2) {
+            return "ERROR: Error while compiling the code (Code 2)";
+        }
     } else if (programmingLanguage == ".cpp") {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == "-1"){
             return "ERROR: Unable to generate the file (Code -1)";
+        }
+
+        // Call the compiler for the correct language and check for errors
+        int compilation = callCompiler(fileName, "g++ %s -o UserProgramm 2> /dev/null");
+        if (compilation == 3) {
+            return "ERROR: Calling system() didn't work (Code 3)";
+        } else if (compilation == -2) {
+            return "ERROR: No compiler found (Code -2)";
+        } else if (compilation == 2) {
+            return "ERROR: Error while compiling the code (Code 2)";
         }
     } else {
         printf("ERROR: Undefined language (Code 1)\n");
@@ -70,21 +110,21 @@ char* writeFile(char* content, char* ending){
 }
 
 // Call the compiler and notice errors
-int callCompiler(char* fileName){
+int callCompiler(char* fileName, char* instruction){
     char cmd[256];
-    snprintf(cmd, sizeof(cmd), "gcc %s -o programm 2> /dev/null", fileName);
+    snprintf(cmd, sizeof(cmd), instruction, fileName);
 
     int status = system(cmd);
     int exitCode = WEXITSTATUS(status);
 
     // Check whether the system() works
-    if (status == -1){
+    if (status == -1) {
         printf("ERROR: Calling system() didn't work (Code 3)\n");
         return 3;
     }
 
     // Check for errors and whether the compiler is installed or not
-    if (exitCode != 0 && exitCode == 127){
+    if (exitCode != 0 && exitCode == 127) {
         printf("ERROR: No compiler found (Code -2)\n");
         return -2;
     } else if (exitCode != 0) {
