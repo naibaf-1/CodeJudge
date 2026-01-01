@@ -6,39 +6,39 @@
 // If called this function receives 3 String and it returns one as soon as it's done
 char* run_judge(const char* usersCode, const char* programmingLanguage, const char* solution) {
     char* fileName;
-    
+
     // TODO Perform the file generation & compilation depending on the used language
     if (programmingLanguage == ".c") {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == "-1"){
-            return "-1";
+            return "ERROR: Unable to generate the file (Code -1)";
         }
         free(fileName);
     } else if (programmingLanguage == ".java") {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == "-1"){
-            return "-1";
+            return "ERROR: Unable to generate the file (Code -1)";
         }
         free(fileName);
     } else if (programmingLanguage == ".py") {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == "-1"){
-            return "-1";
+            return "ERROR: Unable to generate the file (Code -1)";
         }
         free(fileName);
     } else if (programmingLanguage == ".cpp") {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
         if (fileName == "-1"){
-            return "-1";
+            return "ERROR: Unable to generate the file (Code -1)";
         }
         free(fileName);
     } else {
         printf("ERROR: Undefined language (Code 1)\n");
-        return "1";
+        return "ERROR: Undefined language (Code 1)";
     }
 
     // TODO Call the compiler and pass the file with the users code
@@ -62,7 +62,7 @@ char* writeFile(char* content, char* ending){
     FILE *userFile = fopen("", "w");
     if (userFile == NULL){
         printf("ERROR: Unable to generate the file (Code -1)\n");
-        return "-1";
+        return -1;
     }
     
     // Write the content
