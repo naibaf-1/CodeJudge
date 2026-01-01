@@ -14,16 +14,10 @@
 #define TRUE (1)
 #define FALSE (0)
 
-// Struct handling the final result of running a programm
-struct Judger{
-    char* explanation;
-    int score;
-};
-
 // If called this function receives 3 String and it returns one as soon as it's done
-char* run_judge(const char* usersCode, const char* programmingLanguage, const char* solution) {
+char* runJudge(const char* usersCode, const char* programmingLanguage, const char* solution) {
     char* fileName;
-    struct Judger result;
+    char* result;
 
     // Perform the file generation, compilation depending on the used language
     if (strcmp(programmingLanguage, ".c") == 0) {
@@ -217,7 +211,7 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
     }
 
     free(fileName);
-    return result.explanation;
+    return result;
 }
 
 // Generate a file and write its content
@@ -270,9 +264,8 @@ int callCompiler(char* fileName, char* instruction){
 }
 
 // Run a programm and handle the errors
-struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instruction) {
-    struct Judger judger;
-
+char* runProgramAndCalculateTheScore(char* correctSolution, char* instruction) {
+    
     int crashed = FALSE;
     char* result = malloc(2048);
     result[0] = '\0';
@@ -282,11 +275,9 @@ struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instru
     if (!pipe) {
         crashed = TRUE;
         printf("ERROR: The programm crashed  (Code -3)\n");
-        // 0 points if it crashed without an output
-        judger.explanation = "The programm crashed without an output";
-        judger.score = 0;
         free(result);
-        return judger;
+        // 0 points if it crashed without an output
+        return "0 | The programm crashed without an output";
     }
 
     // Receive the output
@@ -314,24 +305,21 @@ struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instru
 
     // 25 points if crashed with wrong Output
     if (strcmp(result, correctSolution) != 0 && crashed == TRUE) {
-        judger.explanation = "The programm crashed and it the output is wrong";
-        judger.score = 25;
+        free(result);
+        return "25 | The programm crashed and it the output is wrong";
     // 50 points if crashed with correct Output
     } else if (strcmp(result, correctSolution) == 0 && crashed == TRUE) {
-        judger.explanation = "The programm crashed, but the output is correct.";
-        judger.score = 50;
+        free(result);
+        return "50 | The programm crashed, but the output is correct.";
     // 75 points if wrong Output but no crash
     } else if (strcmp(result, correctSolution) != 0 && crashed == FALSE) {
-        judger.explanation = "The programm didn't crash, but the output is wrong.";
-        judger.score = 75;
-    // 100 points if correct Output without crashes
+        free(result);
+        return "75 | The programm didn't crash, but the output is wrong.";
+        // 100 points if correct Output without crashes
     } else {
-        judger.explanation = "The programm ran successfully and the output is correct as well!";
-        judger.score = 100;
+        free(result);
+        return "100 |The programm ran successfully and the output is correct as well!";
     }
-
-    free(result);
-    return judger;
 }
 
 // Removes \n & \r at the End of a String
