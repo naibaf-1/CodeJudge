@@ -31,6 +31,9 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         } else if (compilation == 2) {
             return "ERROR: Error while compiling the code (Code 2)";
         }
+
+        // Run and correct the programm
+        runProgramAndCalculateTheScore(solution, "./UserProgramm");
     } else if (strcmp(programmingLanguage, ".java") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -47,6 +50,9 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         } else if (compilation == 2) {
             return "ERROR: Error while compiling the code (Code 2)";
         }
+
+        // Run and correct the programm
+        runProgramAndCalculateTheScore(solution, "java UserCode");
     } else if (strcmp(programmingLanguage, ".py") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -63,6 +69,9 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         } else if (interpretation == 2) {
             return "ERROR: Error while compiling the code (Code 2)";
         }
+
+        // Run and correct the programm
+        runProgramAndCalculateTheScore(solution, "python3 UserCode.py");
     } else if (strcmp(programmingLanguage, ".cpp") == 0) {
         // Write the users code into a file with the correct ending of the language he used
         fileName = writeFile(usersCode, programmingLanguage);
@@ -79,12 +88,17 @@ char* run_judge(const char* usersCode, const char* programmingLanguage, const ch
         } else if (compilation == 2) {
             return "ERROR: Error while compiling the code (Code 2)";
         }
+
+        // Run and correct the programm
+        runProgramAndCalculateTheScore(solution, "./UserProgramm");
     } else {
         printf("ERROR: Undefined language (Code 1)\n");
         return "ERROR: Undefined language (Code 1)";
     }
 
     free(fileName);
+    struct Judger result = runProgramAndCalculateTheScore("", "");
+    return result.explanation;
 }
 
 // Generate a file and write its content
@@ -103,7 +117,7 @@ char* writeFile(char* content, char* ending){
     }
     
     // Write the content
-    fprintf(userFile, content);
+    fputs(content, userFile);
     fclose(userFile);
 
     // Return the correct file name
@@ -137,16 +151,17 @@ int callCompiler(char* fileName, char* instruction){
 }
 
 // Run a programm and handle the errors
-struct Judger runProgramAndCalculateTheScore(int* crashed, char* correctSolution) {
+struct Judger runProgramAndCalculateTheScore(char* correctSolution, char* instruction) {
     struct Judger judger;
 
+    int crashed = 0;
     char* result = malloc(2048);
     result[0] = '\0';
 
     // Try to start the programm and throw an error if it crashes
-    FILE* pipe = popen("./program", "r");
+    FILE* pipe = popen(instruction, "r");
     if (!pipe) {
-        *crashed = 1;
+        crashed = 1;
         result = NULL;
         printf("ERROR: The programm crashed  (Code -3)\n");
     }
@@ -164,11 +179,11 @@ struct Judger runProgramAndCalculateTheScore(int* crashed, char* correctSolution
 
     // Check whether the programm crashed by checking the exit codes
     if (WIFSIGNALED(status)) {
-        *crashed = 1;
+        crashed = 1;
+    } else {
+        // If everything is fine return the correct Output
+        crashed = 0;
     }
-
-    // If everything is fine return the correct Output
-    *crashed = 0;
 
     // Calculate the score
     // 0 points if it crashed without an output
