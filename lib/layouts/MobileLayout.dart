@@ -77,7 +77,7 @@ class ExercisePage extends StatelessWidget{
                   title: items[index].name,
                   onTap: (){
                     // Open an overlay showing further informations
-                    OpenMyRightSheet.openMyRightSheet(context, items[index].description, items[index].task, items[index].solution, 300);
+                    OpenMyRightSheet.openMyRightSheet(context, items[index].description, items[index].task, items[index].hint, items[index].solution, 300);
                   }
                 );
               },

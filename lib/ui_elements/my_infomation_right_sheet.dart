@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class OpenMyRightSheet {
   // Open the RightSheet and fill it with the correct content
-  static void openMyRightSheet(BuildContext context, String description, String task, String solution, double width){
+  static void openMyRightSheet(BuildContext context, String description, String task, String hint, String solution, double width){
     final appLocalizations = AppLocalizations.of(context)!;
 
     MyRightSheet().showRightSheet(
@@ -58,7 +58,7 @@ class OpenMyRightSheet {
                   // Start the training
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TrainingsMode(task: task, solution: solution)),
+                    MaterialPageRoute(builder: (context) => TrainingsMode(task: task, hint: hint, solution: solution)),
                   );                },
                 icon: Icon(Icons.play_circle),
                 label: Text(appLocalizations.rightSheetStart), // Start

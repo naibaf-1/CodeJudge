@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 class TrainingsMode extends StatefulWidget{
   String task;
   String solution;
+  String hint;
   
   TrainingsMode({
     required this.task,
     required this.solution,
+    required this.hint,
   });
 
   @override
@@ -58,19 +60,32 @@ class _TrainingsModeState extends State<TrainingsMode> {
                         width: 1,
                       ),
                     ),
-                    child: Text(
-                      widget.task,
-                      softWrap: true,
+                    child: Row(
+                      children: [
+                        Text(
+                          widget.task, // The task
+                          softWrap: true,
+                        ),
+                        const Spacer(),
+                        FloatingActionButton.small(
+                          child: Icon(Icons.lightbulb_outline),
+                          onPressed: (){
+                            MyAlertDialog().showHintDialog(
+                              context,
+                              appLocalizations.dialogHint, // Hint
+                              widget.hint,
+                              appLocalizations.alertClose, // Close
+                            );
+                          }
+                        )
+                      ],
                     ),
                   ),
-
                   const SizedBox(height: 16),
-
                   MyEditText(
                     hint: appLocalizations.enterCodeHint, // Enter your code...
                     controller: enterCodeController,
                   ),
-
                   const SizedBox(height: 80),
                 ],
               ),
