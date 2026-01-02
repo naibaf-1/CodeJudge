@@ -12,6 +12,7 @@
   "alertScore": "Your score: ",
   "rightSheetStart": "Start",
   "rightSheetDetails": "Details",
+  "dialogHint": "Hint",
 
   "result0": "The programm crashed without an output",
   "result25": "The programm returned a wrong output & crashed then",

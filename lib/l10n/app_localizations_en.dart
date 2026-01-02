@@ -39,6 +39,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rightSheetDetails => 'Details';
 
   @override
+  String get dialogHint => 'Hint';
+
+  @override
   String get result0 => 'The programm crashed without an output';
 
   @override

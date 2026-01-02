@@ -12,6 +12,7 @@
   "alertScore": "Deine Punkte: ",
   "rightSheetStart": "Loslegen",
   "rightSheetDetails": "Details",
+  "dialogHint": "Hinweis",
 
   "result0": "Das Programm ist ohne Output abgestürzt",
   "result25": "Das Programm hat einen falschen Output geliefert & ist anschließend abgestürzt",

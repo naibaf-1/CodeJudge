@@ -155,6 +155,12 @@ abstract class AppLocalizations {
   /// **'Details'**
   String get rightSheetDetails;
 
+  /// No description provided for @dialogHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint'**
+  String get dialogHint;
+
   /// No description provided for @result0.
   ///
   /// In en, this message translates to:
