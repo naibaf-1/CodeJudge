@@ -4,7 +4,6 @@ import 'package:code_juge/pages/settings_page.dart';
 import 'package:code_juge/ui_elements/my_infomation_right_sheet.dart';
 import 'package:code_juge/ui_elements/my_list_items.dart';
 import 'package:code_juge/ui_elements/my_navigation_bar.dart';
-import 'package:code_juge/ui_elements/my_search_bar.dart';
 import 'package:code_juge/utils/exercise_datamodell.dart';
 import 'package:code_juge/utils/global_variables.dart';
 import 'package:code_juge/utils/my_exercises.dart';
@@ -63,9 +62,6 @@ class ExercisePage extends StatelessWidget{
     return Scaffold(
       body: Column(
         children: [
-          MySearchBar(
-            hint: appLocalizations.searchHint, // Search
-          ),
           // Display a list of exercises
           Expanded(
             child: GridView.count(
