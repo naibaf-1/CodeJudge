@@ -278,7 +278,7 @@ char* runProgramAndCalculateTheScore(char* correctSolution, char* instruction) {
         printf("ERROR: The programm crashed  (Code -3)\n");
         free(result);
         // 0 points if it crashed without an output
-        return "0 | The programm crashed without an output";
+        return "0";
     }
 
     // Receive the output
@@ -307,19 +307,19 @@ char* runProgramAndCalculateTheScore(char* correctSolution, char* instruction) {
     // 25 points if crashed with wrong Output
     if (strcmp(result, correctSolution) != 0 && crashed == TRUE) {
         free(result);
-        return "25 | The programm crashed and it the output is wrong";
+        return "25";
     // 50 points if crashed with correct Output
     } else if (strcmp(result, correctSolution) == 0 && crashed == TRUE) {
         free(result);
-        return "50 | The programm crashed, but the output is correct.";
+        return "50";
     // 75 points if wrong Output but no crash
     } else if (strcmp(result, correctSolution) != 0 && crashed == FALSE) {
         free(result);
-        return "75 | The programm didn't crash, but the output is wrong.";
+        return "75";
         // 100 points if correct Output without crashes
     } else {
         free(result);
-        return "100 |The programm ran successfully and the output is correct as well!";
+        return "100";
     }
 }
 
