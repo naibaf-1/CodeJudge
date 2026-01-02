@@ -107,6 +107,12 @@ abstract class AppLocalizations {
   /// **'Search'**
   String get searchHint;
 
+  /// No description provided for @noteDifficultyLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level of difficulty: '**
+  String get noteDifficultyLevel;
+
   /// No description provided for @trainingsMode.
   ///
   /// In en, this message translates to:
