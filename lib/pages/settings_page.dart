@@ -1,5 +1,5 @@
-import 'package:code_juge/l10n/app_localizations.dart';
-import 'package:code_juge/main.dart';
+import 'package:code_judge/l10n/app_localizations.dart';
+import 'package:code_judge/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

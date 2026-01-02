@@ -1,7 +1,7 @@
 library;
 
-import 'package:code_juge/l10n/app_localizations.dart';
-import 'package:code_juge/ui_elements/my_navigation_bar.dart';
+import 'package:code_judge/l10n/app_localizations.dart';
+import 'package:code_judge/ui_elements/my_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 int selectedIndexInNavigationBar = 0;

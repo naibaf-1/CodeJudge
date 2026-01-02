@@ -1,4 +1,4 @@
-name: code_juge
+name: code_judge
 description: "A simple code judger, which helps students to learn programming by heart."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

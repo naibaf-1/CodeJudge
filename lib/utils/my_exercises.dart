@@ -1,4 +1,4 @@
-import 'package:code_juge/utils/exercise_datamodell.dart';
+import 'package:code_judge/utils/exercise_datamodell.dart';
 
 class MyExercises {
   final List<ExerciseDatamodell> exercises = [
