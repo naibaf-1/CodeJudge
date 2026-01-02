@@ -5,12 +5,14 @@ class ExerciseDatamodell {
   final String task;
   final String solution;
   final int difficultyLevel;
+  final String hint;
 
   ExerciseDatamodell({
     required this.name,
     required this.description,
     required this.task,
     required this.solution,
-    required this.difficultyLevel
+    required this.difficultyLevel,
+    this.hint = "No hint!",
   });
 }
