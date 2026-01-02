@@ -3,15 +3,15 @@ import 'package:code_juge/main.dart';
 import 'package:flutter/material.dart';
 
 class MyAlertDialog {
-  void showTrainingSuccessfullDialog(BuildContext context){
+  void showTrainingSuccessfullDialog(BuildContext context, int score){
     final appLocalizations = AppLocalizations.of(context)!;
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: score == 100 ? false : true,
       builder: (context) {
         return AlertDialog(
           title: Text(appLocalizations.alertSuccess), // Congratulations!
-          // TODO Display result with translation!
+          // TODO Display result with translation! => Simplify Backend and translate it right here depending on the score
           content: Text("Your Score..."),
           actions: [
             TextButton(
