@@ -2,7 +2,7 @@ import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-//import 'package:orderty_customer/l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -23,11 +23,11 @@ class SettingsPage extends StatelessWidget {
         title: Text(appLocalizations.settings), // Settings
         backgroundColor: theme.colorScheme.primaryContainer,
       ), //Title: Settings
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            ListTile(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
+            child: ListTile(
               title: Text(appLocalizations.themeMode), // Theme Mode:
               trailing: SizedBox(
                 width: 86,
@@ -57,7 +57,10 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-            ListTile(
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: ListTile(
               title: Text(appLocalizations.localisationMode), // Language:
               trailing: SizedBox(
                 width: 86,
@@ -91,8 +94,91 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          const Spacer(),
+          Divider(thickness: 1, height: 1),
+          Container(
+            padding: const EdgeInsets.all(12),
+            color: theme.colorScheme.surfaceContainerHigh,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  child: Text(appLocalizations.aboutThisButton), // About this project
+                  onPressed: () async {
+                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge");
+                
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                ),
+                TextButton(
+                  child: Text(appLocalizations.seeLicenseButton), // See the license
+                  onPressed: () async {
+                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge?tab=License-1-ov-file");
+                
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                ),
+                TextButton(
+                  child: Text(appLocalizations.reportABugButton), // Report a bug
+                  onPressed: () async {
+                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=bug-report-for-code-judge.md");
+                
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                ),
+                TextButton(
+                  child: Text(appLocalizations.requestAFeatureButton), // Request a feature
+                  onPressed: () async {
+                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=feature-request-for-code-judge.md");
+                
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                ),
+                TextButton(
+                  child: Text(appLocalizations.seeReleasesButton), // See all releases
+                  onPressed: () async {
+                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/releases");
+                
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                ),
+                TextButton(
+                  child: Text(appLocalizations.aboutMeButton), // About the developer
+                  onPressed: () async {
+                    final url = Uri.parse("https://github.com/naibaf-1");
+                
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    } else {
+                      throw "Could not launch $url";
+                    }
+                  },
+                ),
+              ],
+            )
+          )
+        ],
       ),
     );
   }
