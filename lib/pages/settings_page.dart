@@ -130,7 +130,7 @@ class SettingsPage extends StatelessWidget {
                 TextButton(
                   child: Text(appLocalizations.reportABugButton), // Report a bug
                   onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=bug-report-for-code-judge.md");
+                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=bug-report-for-codejudge.md");
                 
                     if (await canLaunchUrl(url)) {
                       await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -142,7 +142,7 @@ class SettingsPage extends StatelessWidget {
                 TextButton(
                   child: Text(appLocalizations.requestAFeatureButton), // Request a feature
                   onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=feature-request-for-code-judge.md");
+                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=feature-request-for-codejudge.md");
                 
                     if (await canLaunchUrl(url)) {
                       await launchUrl(url, mode: LaunchMode.externalApplication);
