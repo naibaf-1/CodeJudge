@@ -2,13 +2,21 @@ import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/layouts/DesktopLayout.dart';
 import 'package:code_juge/layouts/MobileLayout.dart';
 import 'package:code_juge/layouts/TabletLayout.dart';
+import 'package:code_juge/utils/judger_bindings.dart';
+import 'package:code_juge/utils/judger_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
+
+late JudgerLib judgerLib;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Load the library just once and store it global
+  final lib = await loadJudgerLibrary();
+  judgerLib = JudgerLib(lib);
 
   final settingsController = SettingsController();
   //Apply SharedPreferences

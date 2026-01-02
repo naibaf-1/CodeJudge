@@ -1,6 +1,9 @@
 import 'package:code_juge/l10n/app_localizations.dart';
+import 'package:code_juge/main.dart';
 import 'package:code_juge/ui_elements/my_alert_dialog.dart';
 import 'package:code_juge/ui_elements/my_edit_text.dart';
+import 'package:code_juge/utils/judger_bindings.dart';
+import 'package:code_juge/utils/judger_loader.dart';
 import 'package:flutter/material.dart';
 
 class TrainingsMode extends StatelessWidget{
@@ -84,15 +87,18 @@ class BottomContainer extends StatefulWidget{
 }
 
 class _BottomContainerState extends State<BottomContainer> {
+  String textBoxMessage = "";
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Container(
       padding: const EdgeInsets.all(12),
       color: theme.colorScheme.surfaceContainerHigh,
       child: Row(
         children: [
-          const Text("ERROR: xyz"),
+          Text(textBoxMessage),
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,12 +130,14 @@ class _BottomContainerState extends State<BottomContainer> {
           ),
           const SizedBox(width: 16),
           FloatingActionButton.extended(
-            // TODO Call C backend => Handle output
-            // TODO Implement translation
             label: Text(widget.buttonLabel), // Done
             icon: Icon(Icons.done_all),
             onPressed: () {
-              MyAlertDialog().showTrainingSuccessfullDialog(context);
+              // Call library if available
+              setState(() {
+                textBoxMessage = judgerLib.callJudger( "print('hi')", ".unknown", "hi", );
+              });
+              //MyAlertDialog().showTrainingSuccessfullDialog(context, 100);
             },
           ),
         ],
