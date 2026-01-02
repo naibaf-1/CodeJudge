@@ -3,6 +3,7 @@
 
   "exercises": "Exercises",
   "searchHint": "Search",
+  "noteDifficultyLevel": "Level of difficulty: ",
 
   "trainingsMode": "Trainings mode",
   "enterCodeHint": "Enter your code...",
