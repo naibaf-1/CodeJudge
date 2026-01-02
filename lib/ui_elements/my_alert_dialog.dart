@@ -3,6 +3,7 @@ import 'package:code_juge/main.dart';
 import 'package:flutter/material.dart';
 
 class MyAlertDialog {
+  // Dialog showing the results
   void showTrainingSuccessfullDialog(BuildContext context, int score){
     final appLocalizations = AppLocalizations.of(context)!;
     showDialog(
@@ -57,4 +58,24 @@ class MyAlertDialog {
     }
   }
 
+  // Dialog showing hints
+  void showHintDialog(BuildContext context, String title, String hint, String buttonLabel){
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(hint),
+          actions: [
+            TextButton(
+              child: Text(buttonLabel),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      }
+    );
+  }
 }
