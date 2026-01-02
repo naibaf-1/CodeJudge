@@ -1,5 +1,6 @@
 import 'package:code_juge/l10n/app_localizations.dart';
 import 'package:code_juge/main.dart';
+import 'package:code_juge/ui_elements/my_alert_dialog.dart';
 import 'package:code_juge/ui_elements/my_edit_text.dart';
 import 'package:flutter/material.dart';
 
@@ -116,11 +117,18 @@ class _TrainingsModeState extends State<TrainingsMode> {
                   icon: Icon(Icons.done_all),
                   onPressed: () {
                     String userCode = enterCodeController.text;
-                    // Call library if available
-                    setState(() {
-                      textBoxMessage = judgerLib.callJudger(userCode, programmingLanguage, "42",);
-                    });
-                    //MyAlertDialog().showTrainingSuccessfullDialog(context, 100);
+                    // Call library and check it's result
+                    String resultByJudger = judgerLib.callJudger(userCode, programmingLanguage, "42");
+
+                    // If the result is an error message display it in the lower left Text()
+                    if (resultByJudger.startsWith("ERROR:")) {
+                      setState(() {
+                        textBoxMessage = resultByJudger;
+                      });
+                    // Else open a Dialog an tell the user about it's result
+                    } else {
+                      MyAlertDialog().showTrainingSuccessfullDialog(context, int.parse(resultByJudger.trimLeft()));
+                    }
                   },
                 ),
               ],
