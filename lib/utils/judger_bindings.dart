@@ -1,17 +1,8 @@
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 
-typedef c_judger_func = Pointer<Utf8> Function(
-  Pointer<Utf8>,
-  Pointer<Utf8>,
-  Pointer<Utf8>,
-);
-
-typedef dart_judger_func = Pointer<Utf8> Function(
-  Pointer<Utf8>,
-  Pointer<Utf8>,
-  Pointer<Utf8>,
-);
+typedef c_judger_func = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Utf8>);
+typedef dart_judger_func = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Utf8>);
 
 // Define the bindings for my library
 class JudgerLib {
@@ -19,9 +10,7 @@ class JudgerLib {
   late final dart_judger_func runJudge;
 
   JudgerLib(this._lib) {
-    runJudge = _lib
-        .lookup<NativeFunction<c_judger_func>>('runJudge')
-        .asFunction();
+    runJudge = _lib.lookup<NativeFunction<c_judger_func>>('runJudge').asFunction();
   }
 
   // Function "translating" between the library and the flutter code
