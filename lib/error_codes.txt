@@ -1,7 +1,9 @@
+Note: The lines which are mentioned point to the origin of the errors. There are multiple passages where they are passed on!
+
 - Code 1: The String programmingLanguage is either null or it has a value the if conditions can't handle,
-                                 which means it's an unsupported language (judger.c line 208)
-- Code -1: The file has a value of NULL (judger.c line 227-231)
-- Code 2: The compiler exited with an error code, which means the users code has a mistake (judger.c line 260)
+                                 which means it's an unsupported language (judger.c line 252)
+- Code -1: The file has a value of NULL (judger.c line 273)
+- Code 2: The compiler exited with an error code, which means the users code has a mistake (judger.c line 301/312)
 - Code -2: The compiler isn't installed or it wasn't found (judger.c line 257)
-- Code 3: The function system() is damaged (judger.c line 251)
-- Code -3: The programm crashed, which means the users code has a mistake (judger.c line 278 & 297)
+- Code 3: The function system() is damaged (judger.c line 294)
+- Code -3: The programm crashed, which means the users code has a mistake (judger.c line 331 & 351/359)
