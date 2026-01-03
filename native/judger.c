@@ -294,6 +294,7 @@ char* runProgramAndCalculateTheScore(char* correctSolution, char* instruction) {
 
     // Check whether the programm crashed by checking the exit codes
     if (WIFSIGNALED(status)) {
+        printf("ERROR: The programm crashed  (Code -3)\n");
         crashed = TRUE;
     } else {
         // If everything is fine return the correct Output
