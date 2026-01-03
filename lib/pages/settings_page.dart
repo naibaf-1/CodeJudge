@@ -10,13 +10,11 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     final themeFocusNode = FocusNode();
     final settingsController = Provider.of<SettingsController>(context);
     final currentMode = settingsController.selectedTheme;
     final currentLocalization = settingsController.selectedLocale?.languageCode ?? 'system';
-    // Get translation
-    final appLocalizations = AppLocalizations.of(context)!;
+    final appLocalizations = AppLocalizations.of(context)!; // Get translation
 
     return Scaffold(
       appBar: AppBar(
@@ -40,18 +38,9 @@ class SettingsPage extends StatelessWidget {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
                   items: [
-                    DropdownMenuItem(
-                      value: ThemeMode.system,
-                      child: Text(appLocalizations.system)  // System
-                    ),
-                    DropdownMenuItem(
-                      value: ThemeMode.light,
-                      child: Text(appLocalizations.lightMode) // Light
-                    ),
-                    DropdownMenuItem(
-                      value: ThemeMode.dark,
-                      child: Text(appLocalizations.darkMode) // Dark
-                    ),
+                    DropdownMenuItem(value: ThemeMode.system, child: Text(appLocalizations.system)), // System
+                    DropdownMenuItem(value: ThemeMode.light, child: Text(appLocalizations.lightMode)), // Light
+                    DropdownMenuItem(value: ThemeMode.dark, child: Text(appLocalizations.darkMode)), // Dark
                   ],
                 ),
                 ),
@@ -77,18 +66,9 @@ class SettingsPage extends StatelessWidget {
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                   items: [
-                      DropdownMenuItem(
-                        value: 'system',
-                        child: Text(appLocalizations.system), // System
-                      ),
-                      DropdownMenuItem(
-                        value: 'en',
-                        child: Text(appLocalizations.localeEnglish), // English
-                      ),
-                      DropdownMenuItem(
-                        value: 'de',
-                        child: Text(appLocalizations.localeGerman), // German
-                      ),
+                      DropdownMenuItem(value: 'system', child: Text(appLocalizations.system)), // System
+                      DropdownMenuItem(value: 'en', child: Text(appLocalizations.localeEnglish)), // English
+                      DropdownMenuItem(value: 'de', child: Text(appLocalizations.localeGerman)), // German
                     ],
                   ),
                 ),
@@ -105,74 +85,38 @@ class SettingsPage extends StatelessWidget {
               children: [
                 TextButton(
                   child: Text(appLocalizations.aboutThisButton), // About this project
-                  onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge");
-                
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(url, mode: LaunchMode.externalApplication);
-                    } else {
-                      throw "Could not launch $url";
-                    }
+                  onPressed: () {
+                    openLink("https://github.com/naibaf-1/CodeJudge");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.seeLicenseButton), // See the license
-                  onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge?tab=License-1-ov-file");
-                
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(url, mode: LaunchMode.externalApplication);
-                    } else {
-                      throw "Could not launch $url";
-                    }
+                  onPressed: () {
+                    openLink("https://github.com/naibaf-1/CodeJudge?tab=License-1-ov-file");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.reportABugButton), // Report a bug
-                  onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=bug-report-for-codejudge.md");
-                
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(url, mode: LaunchMode.externalApplication);
-                    } else {
-                      throw "Could not launch $url";
-                    }
+                  onPressed: () {
+                    openLink("https://github.com/naibaf-1/CodeJudge/issues/new?template=bug-report-for-codejudge.md");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.requestAFeatureButton), // Request a feature
-                  onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/issues/new?template=feature-request-for-codejudge.md");
-                
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(url, mode: LaunchMode.externalApplication);
-                    } else {
-                      throw "Could not launch $url";
-                    }
+                  onPressed: () {
+                    openLink("https://github.com/naibaf-1/CodeJudge/issues/new?template=feature-request-for-codejudge.md");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.seeReleasesButton), // See all releases
-                  onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1/CodeJudge/releases");
-                
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(url, mode: LaunchMode.externalApplication);
-                    } else {
-                      throw "Could not launch $url";
-                    }
+                  onPressed: () {
+                    openLink("https://github.com/naibaf-1/CodeJudge/releases");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.aboutMeButton), // About the developer
-                  onPressed: () async {
-                    final url = Uri.parse("https://github.com/naibaf-1");
-                
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(url, mode: LaunchMode.externalApplication);
-                    } else {
-                      throw "Could not launch $url";
-                    }
+                  onPressed: () {
+                    openLink("https://github.com/naibaf-1");
                   },
                 ),
               ],
@@ -181,5 +125,15 @@ class SettingsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Open a link in the browser
+  void openLink(String link) async {
+    final url = Uri.parse(link);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      throw "Could not launch $url";
+    }
   }
 }
