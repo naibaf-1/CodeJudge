@@ -31,12 +31,7 @@ class MyNavigationBar extends StatelessWidget {
               width: 200,
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 12,
-                    spreadRadius: 2,
-                  )
-                ],
+                boxShadow: [BoxShadow(blurRadius: 12, spreadRadius: 2)],
               ),
               child: Column(
                 children: [
@@ -50,11 +45,7 @@ class MyNavigationBar extends StatelessWidget {
                   const Spacer(),
                   Padding(
                     padding: EdgeInsetsGeometry.only(bottom: 4),
-                    child: Divider(
-                      thickness: 1,
-                      height: 1,
-                      color: theme.colorScheme.primary,
-                    ),
+                    child: Divider(thickness: 1, height: 1, color: theme.colorScheme.primary),
                   ),
                   MyNavigationBarItem(
                     icon: items.last.icon,
@@ -65,11 +56,7 @@ class MyNavigationBar extends StatelessWidget {
                 ],
               ),
             ),
-            VerticalDivider(
-              thickness: 1,
-              width: 1,
-              color: theme.colorScheme.primary,
-            ),
+            VerticalDivider(thickness: 1, width: 1, color: theme.colorScheme.primary),
             Expanded(child: body),
           ],
         ),
@@ -82,47 +69,24 @@ class MyNavigationBar extends StatelessWidget {
               backgroundColor: theme.colorScheme.surface,
               selectedIndex: selectedIndex,
               labelType: NavigationRailLabelType.all,
-              selectedIconTheme: IconThemeData(
-                color: theme.colorScheme.primary,
-                size: 30,
-              ),
-              unselectedIconTheme: IconThemeData(
-                color: theme.colorScheme.outline,
-                size: 25,
-              ),
-              selectedLabelTextStyle: TextStyle(
-                color: theme.colorScheme.primary,
-                fontWeight: FontWeight.bold,
-              ),
-              unselectedLabelTextStyle: TextStyle(
-                color: theme.colorScheme.outline,
-              ),
+              selectedIconTheme: IconThemeData(color: theme.colorScheme.primary, size: 30),
+              unselectedIconTheme: IconThemeData(color: theme.colorScheme.outline, size: 25),
+              selectedLabelTextStyle: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
+              unselectedLabelTextStyle: TextStyle(color: theme.colorScheme.outline),
               onDestinationSelected: onItemSelected,
               destinations: [
                 for (final item in items)
-                  NavigationRailDestination(
-                    icon: Icon(item.icon),
-                    label: Text(item.label),
-                  ),
+                  NavigationRailDestination(icon: Icon(item.icon), label: Text(item.label)),
               ],
             ),
-            VerticalDivider(
-              thickness: 1,
-              width: 1,
-              color: theme.colorScheme.primary,
-            ),
+            VerticalDivider(thickness: 1, width: 1, color: theme.colorScheme.primary),
             Expanded(child: body),
           ],
         ),
       );
     } else {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            title,
-          ),
-          backgroundColor: theme.colorScheme.primaryContainer,
-        ),
+        appBar: AppBar(title: Text(title), backgroundColor: theme.colorScheme.primaryContainer),
         drawer: Drawer(
           backgroundColor: theme.colorScheme.surface,
           child: Column(
@@ -132,11 +96,7 @@ class MyNavigationBar extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'CodeJudge',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.primary,
-                    ),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: theme.colorScheme.primary)
                   ),
                 ),
               ),
@@ -151,10 +111,7 @@ class MyNavigationBar extends StatelessWidget {
                         onTap: () => onItemSelected(i),
                       ),
                     const Spacer(),
-                    Divider(
-                      thickness: 1,
-                      height: 1,
-                    ),
+                    Divider(thickness: 1, height: 1),
                     MyNavigationBarItem(
                       icon: items.last.icon,
                       label: items.last.label,
@@ -205,9 +162,7 @@ class MyNavigationBarItem extends StatelessWidget {
       duration: const Duration(milliseconds: 180),
       curve: Curves.easeOut,
       decoration: BoxDecoration(
-        color: selected
-            ? theme.colorScheme.primary.withOpacity(0.12)
-            : Colors.transparent,
+        color: selected ? theme.colorScheme.primary.withOpacity(0.12) : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
@@ -220,9 +175,7 @@ class MyNavigationBarItem extends StatelessWidget {
               Icon(
                 icon,
                 size: 24,
-                color: selected
-                    ? theme.colorScheme.primary
-                    : theme.colorScheme.onSurface.withOpacity(0.8),
+                color: selected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.8),
               ),
               const SizedBox(width: 12),
               Text(
@@ -231,9 +184,7 @@ class MyNavigationBarItem extends StatelessWidget {
                   fontFamily: "SourceCodePro",
                   fontSize: 15,
                   fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-                  color: selected
-                      ? theme.colorScheme.primary
-                      : theme.colorScheme.onSurface.withOpacity(0.8),
+                  color: selected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.8),
                 ),
               ),
             ],
