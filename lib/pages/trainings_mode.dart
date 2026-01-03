@@ -68,6 +68,7 @@ class _TrainingsModeState extends State<TrainingsMode> {
                         const SizedBox(width: 16),
                         FloatingActionButton.small(
                           child: Icon(Icons.lightbulb_outline),
+                          heroTag: "hint",
                           onPressed: (){
                             MyAlertDialog().showHintDialog(
                               context,
@@ -131,6 +132,7 @@ class _TrainingsModeState extends State<TrainingsMode> {
                 FloatingActionButton.extended(
                   label: Text(appLocalizations.done), // Done
                   icon: Icon(Icons.done_all),
+                  heroTag: "done",
                   onPressed: () {
                     String userCode = enterCodeController.text;
                     // Call library and check it's result
