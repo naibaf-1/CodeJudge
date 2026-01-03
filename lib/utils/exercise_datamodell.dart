@@ -13,6 +13,6 @@ class ExerciseDatamodell {
     required this.task,
     required this.solution,
     required this.difficultyLevel,
-    this.hint = "No hint!",
+    this.hint = "No hint available.",
   });
 }
