@@ -38,17 +38,11 @@ class MyApp extends StatelessWidget {
     final settingsController = Provider.of<SettingsController>(context);
 
     final ThemeData lightTheme = ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.lime,
-        brightness: Brightness.light,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.lime, brightness: Brightness.light),
       useMaterial3: true,
     );
     final ThemeData darkTheme = ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.lime,
-        brightness: Brightness.dark,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.lime, brightness: Brightness.dark),
       useMaterial3: true,
     );
 
@@ -66,10 +60,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         AppLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('de'),
-      ],
+      supportedLocales: const [Locale('en'), Locale('de')],
       locale: settingsController.selectedLocale,
 
       // Widget shown when the app launches
@@ -90,7 +81,7 @@ class HomePageLayoutHandler extends StatelessWidget{
         switch (screenType) {
           // User is supposed to use a desktop
           case ScreenType.desktop:
-          return Desktoplayout();
+            return Desktoplayout();
           // Tablet would be fine too
           case ScreenType.tablet:
             return Tabletlayout();
@@ -107,7 +98,6 @@ class HomePageLayoutHandler extends StatelessWidget{
 enum ScreenType {mobile, tablet, desktop}
 // Apply the correct screen type
 class Responsive{
-
     static ScreenType getScreenType (double width) {
     // For desktops
     if (width >= 1200) {
@@ -126,7 +116,6 @@ class Responsive{
 class SettingsController extends ChangeNotifier {
   ThemeMode _selectedTheme = ThemeMode.system;
   ThemeMode get selectedTheme => _selectedTheme;
-
   Locale? _selectedLocale;
   Locale? get selectedLocale => _selectedLocale;
   
