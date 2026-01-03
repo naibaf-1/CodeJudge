@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Customised TextField
 class MyEditText extends StatefulWidget {
@@ -31,11 +30,8 @@ class _MyEditTextState extends State<MyEditText> {
   @override
   void initState() {
     super.initState();
-    //widget.controller = TextEditingController(text: widget.text);
     // Cursor at the end
-    widget.controller.selection = TextSelection.fromPosition(
-      TextPosition(offset: widget.controller.text.length),
-    );
+    widget.controller.selection = TextSelection.fromPosition(TextPosition(offset: widget.controller.text.length));
   }
 
   @override
@@ -49,32 +45,22 @@ class _MyEditTextState extends State<MyEditText> {
       autofocus: widget.autofocus,
       maxLines: maxLines,
 
-      textInputAction:
-          widget.multiline ? TextInputAction.newline : TextInputAction.done,
+      textInputAction: widget.multiline ? TextInputAction.newline : TextInputAction.done,
 
       decoration: InputDecoration(
         hintText: widget.hint,
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.outline,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-            width: 2,
-          ),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
         ),
-        hintStyle: TextStyle(
-          color: Theme.of(context).hintColor,
-        ),
+        hintStyle: TextStyle(color: Theme.of(context).hintColor),
       ),
     );
   }
