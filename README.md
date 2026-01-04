@@ -138,6 +138,6 @@ or improve exercises!
 
 ## Screenshots
 |<img src="./assets/screenshots/Exercises.png" width="540"/> <br>**See all exercises**|<img src="./assets/screenshots/Informations_Overlay.png" width="540"/> <br>**See details**|
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
 | <img src="./assets/screenshots/Training_mode.png" width="540"/> <br><div align="center">**Train your skills**</div> | <img src="./assets/screenshots/Training_mode_Hint.png" width="540"/> <br><div align="center">**See hints**</div> |
 | <img src="./assets/screenshots/Settings.png" width="540"/> <br><div align="center">**Toggle the settings**</div> |
