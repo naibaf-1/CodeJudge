@@ -47,3 +47,4 @@ app.*.map.json
 # Related to the backend in c
 native/build-*
 assets/native/
+releases
