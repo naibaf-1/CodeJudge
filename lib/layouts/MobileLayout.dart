@@ -73,7 +73,7 @@ class ExercisePage extends StatelessWidget{
     return Scaffold(
       body: Column(
         children: [
-          // Display a list of dishes
+          // Display a list of exercises
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.all(8),

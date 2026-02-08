@@ -85,6 +85,8 @@ class MyApp extends StatelessWidget {
 
 // Decide for the correct layout depending on the screen type
 class HomePageLayoutHandler extends StatelessWidget{
+  const HomePageLayoutHandler({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

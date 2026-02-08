@@ -73,7 +73,7 @@ class ExercisePage extends StatelessWidget{
     return Scaffold(
       body: Column(
         children: [
-          // Display a list of dishes
+          // Display a list of exercises
           Expanded(
             child: GridView.count(
               crossAxisCount: 3,
