@@ -101,31 +101,31 @@ class SettingsPage extends StatelessWidget {
                 TextButton(
                   child: Text(appLocalizations.aboutThisButton), // About this project
                   onPressed: () {
-                    openLink("https://github.com/naibaf-1/CodeJudge");
+                    openLink("https://github.com/CodeJudgeOrg/CodeJudge-Student");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.seeLicenseButton), // See the license
                   onPressed: () {
-                    openLink("https://github.com/naibaf-1/CodeJudge?tab=License-1-ov-file");
+                    openLink("https://github.com/CodeJudgeOrg/CodeJudge-Student?tab=Apache-2.0-1-ov-file");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.reportABugButton), // Report a bug
                   onPressed: () {
-                    openLink("https://github.com/naibaf-1/CodeJudge/issues/new?template=bug-report-for-codejudge.md");
+                    openLink("https://github.com/CodeJudgeOrg/CodeJudge-Student/issues/new?template=bug-report-for-codejudge.md");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.requestAFeatureButton), // Request a feature
                   onPressed: () {
-                    openLink("https://github.com/naibaf-1/CodeJudge/issues/new?template=feature-request-for-codejudge.md");
+                    openLink("https://github.com/CodeJudgeOrg/CodeJudge-Student/issues/new?template=feature-request-for-codejudge.md");
                   },
                 ),
                 TextButton(
                   child: Text(appLocalizations.seeReleasesButton), // See all releases
                   onPressed: () {
-                    openLink("https://github.com/naibaf-1/CodeJudge/releases");
+                    openLink("https://github.com/CodeJudgeOrg/CodeJudge-Student/releases");
                   },
                 ),
                 TextButton(
